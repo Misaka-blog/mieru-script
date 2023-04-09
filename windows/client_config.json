@@ -1,0 +1,28 @@
+{
+    "profiles": [
+        {
+            "profileName": "default",
+            "user": {
+                "name": "pingzi",
+                "password": "solo220poundMaiZi"
+            },
+            "servers": [
+                {
+                    "ipAddress": "89.64.19.37",
+                    "domainName": "",
+                    "portBindings": [
+                        {
+                            "port": 22345,
+                            "protocol": "TCP"
+                        }
+                    ]
+                }
+            ],
+            "mtu": 1400
+        }
+    ],
+    "activeProfile": "default",
+    "rpcPort": 8964,
+    "socks5Port": 3080,
+    "loggingLevel": "INFO"
+}
