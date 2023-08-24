@@ -100,20 +100,24 @@ mita_switch(){
 edit_conf(){
     mita stop
 
-    read -p "设置 mieru 端口[1-65535]（回车则随机分配端口）：" port
+    read -p "设置 mieru 端口 [1-65535]（回车则随机分配端口）：" port
     [[ -z $port ]] && port=$(shuf -i 2000-65535 -n 1)
     until [[ -z $(ss -ntlp | awk '{print $4}' | sed 's/.*://g' | grep -w "$port") ]]; do
         if [[ -n $(ss -ntlp | awk '{print $4}' | sed 's/.*://g' | grep -w "$port") ]]; then
             echo -e "${RED} $port ${PLAIN} 端口已经被其他程序占用，请更换端口重试！"
-            read -p "设置 mieru 端口[1-65535]（回车则随机分配端口）：" port
+            read -p "设置 mieru 端口 [1-65535]（回车则随机分配端口）：" port
             [[ -z $port ]] && port=$(shuf -i 2000-65535 -n 1)
         fi
     done
+    yellow "将在 mieru 代理节点使用的端口为：$port"
 
-    read -rp "请输入代理认证用户名 [留空随机生成]：" user_name
+    read -rp "请输入 mieru 代理认证用户名 [留空随机生成]：" user_name
     [[ -z $user_name ]] && user_name=$(date +%s%N | md5sum | cut -c 1-8)
-    read -rp "请输入代理认证密码 [留空随机生成]：" auth_pass
+    yellow "将在 mieru 代理节点使用的用户名为：$user_name"
+
+    read -rp "请输入 mieru 代理认证密码 [留空随机生成]：" auth_pass
     [[ -z $auth_pass ]] && auth_pass=$(date +%s%N | md5sum | cut -c 1-8)
+    yellow "将在 mieru 代理节点使用的密码为：$auth_pass"
 
     yellow "正在检测并设置 MTU 最佳值, 请稍等..."
     check_ip
