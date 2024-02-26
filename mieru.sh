@@ -222,7 +222,7 @@ EOF
     mita start
     result=$(mita status)
 
-    if [[ $result =~ "mieru server status is \"RUNNING\"" ]]; then
+    if [[ $result =~ "mita server status is \"RUNNING\"" ]]; then
         green "mieru 服务安装成功！"
     else
         red "mieru 服务启动失败，脚本退出！" && exit 1
